@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/cosmo/bootstrap.min.css" />
+	<script src= "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" ></script>
+<style>
+        
+        .navbar-nav{
+            position: relative;
+            left: 30%;
+            margin-left: -10%;
+        }
+        
+        
+    </style>
+</head>
+<body>
+ <header>
+        <nav class="navbar navbar-expand-md navbar-dark" id="25" style="background-color: rgb(163, 232, 163)">
+            
+                    <ul class="navbar-nav">
+                    	<li><a th:href="@{'/'}" class="navbar-brand">liste d'employers</a></li>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;
+                        <li><a th:href="@{'/prJournalière'}" class="navbar-brand">liste de présence journalière</ath:href="@{'/new'}"></li>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;
+                        <li><a th:href="@{'/prMensuelle'}" class="navbar-brand">liste de présence mensuelle</a></li>
+                        
+                    </ul>
+                </nav>
+            </header>
+            <br>
+
+	
+	 <div class="row">
+                <!-- <div class="alert alert-success" *ngIf='message'>{{message}}</div> -->
+
+                <div class="container">
+                    <h3 class="text-center">Liste d'employers</h3>
+                    <br>
+                    <div class="container text-left">
+						
+                        <a th:href="@{'/new'}" class="btn btn-success">Ajouter un employer</a>
+                    </div>
+                    <br>
+                    <table class="table table-bordered">
+                        <thead>
+                        
+                       <th>CIN</th>
+                                <th>Nom  et prénom du patient</th>
+                              
+                                <th>Adresse</th>
+                                <th>téléphone</th>
+            					<th>edit</th>
+             					<th>delete</th>
+                        
+                        <!--
+                            <tr>
+                                <th>CIN</th>
+                                <th>Nom  et prénom du patient</th>
+                              
+                                <th>Adresse</th>
+                                <th>téléphone</th>
+                                <th>Actions</th>
+                            </tr>-->
+                        </thead>
+                       
+                        
+                        
+                        <tbody>
+      <tr  th:each="employee : ${listemployee}">
+		<td th:text="${employee.cin}">Cin</td>
+		<td th:text="${employee.nom}">Nom  et prénom</td>
+		<td th:text="${employee.adresse}">Adresse</td>
+		<td th:text="${employee.tel}">Téléphone</td>				
+		<td>
+			<a th:href="@{'/edit/' + ${employee.cin}}"><img th:src="@{/images/edit_24px.png}" alt="" style="width:25px;height:25px"></a>
+		</td>							    
+		<td>
+			<a th:href="@{'/delete/' + ${employee.cin}}"><img  alt="" th:src="@{/images/delete_64px.png}" style="width:25px;height:25px"></a>
+		</td>		    
+		</tr> 
+   
+  </tbody>
+                       
+                          <!-- <tr  th:each="employe : ${listemploye}">
+                            <td th:text="${employe.cin}">CIN</td>
+                            <td th:text="${employe.name}">Nom  et prénom du patient</td>
+                            <td th:text="${employe.adresse}">Adresse</td>
+                            <td th:text="${employe.tel}">téléphone</td>                
+                            <td>
+                                <a th:href="@{'/edit/' + ${employe.cin}}">Edit</a>
+                                 <a th:href="@{'/delete/' + ${employe.cin}}">Delete</a>
+                            </td>                               
+                                  
+                            </tr>  -->
+                              
+                            <!-- <td><a href="#" ><img src="edit_24px.png" alt="" style="width:25px;height:25px"></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#"><img src="delete_64px.png" alt="" style="width:25px;height:25px"></a></td> --> 
+                             
+                       
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+</body>
+</html>

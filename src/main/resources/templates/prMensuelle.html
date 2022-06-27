@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>presence mensuelle</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<style>
+         .navbar-nav{
+            position: relative;
+            left: 30%;
+            margin-left: -10%;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark" style="background-color: skyblue">
+            
+             
+            <ul class="navbar-nav">
+            	<li><a th:href="@{'/'}" class="navbar-brand">liste d'employers</a></li>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;
+                        <li><a th:href="@{'/prJournalière'}" class="navbar-brand">liste de présence journalière</ath:href="@{'/new'}"></li>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;
+                        <li><a th:href="@{'/prMensuelle'}" class="navbar-brand">liste de présence mensuelle</a></li>
+                             
+            </ul>
+                </nav>
+            </header>
+            <br>
+
+            <div class="row">
+                <!-- <div class="alert alert-success" *ngIf='message'>{{message}}</div> -->
+
+                <div class="container">
+                    <h3 class="text-center">Liste de présence mensuelle</h3>
+                    <hr>
+                   
+                    <br>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>CIN</th>
+                                <th>Nom  et prénom du patient</th>
+                                <th>Mois</th>
+                                <th>Nombre de présence</th>
+                               
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                         <tr  th:each="monthList : ${monthList}">
+		<td th:text="${monthList.cin}">Cin</td>
+		<td th:text="${monthList.nom}">Nom  et prénom</td>
+		<td th:text="${monthList.mois}">Mois</td>
+		<td th:text="${monthList.presence}">Nombre de présence</td>				
+								    		    
+		</tr> 
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+    
+</body>
+</html>

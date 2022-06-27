@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire d'ajout</title>
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <style>
+                 .navbar-nav{
+            position: relative;
+            left: 30%;
+            margin-left: -10%;
+        }
+                
+            </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark" style="background-color: rgb(163, 232, 163)">
+           
+            
+            <ul class="navbar-nav">
+            	<li><a th:href="@{'/'}" class="navbar-brand">liste d'employers</a></li>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;
+                        <li><a th:href="@{'/prJournalière'}" class="navbar-brand">liste de présence journalière</ath:href="@{'/new'}"></li>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;
+                        <li><a th:href="@{'/prMensuelle'}" class="navbar-brand">liste de présence mensuelle</a></li>
+                             
+            </ul>
+        </nav>
+    </header>
+    <br>
+    <div class="container col-md-5">
+        <div class="card">
+            <div class="card-body">
+                <form action="#" th:action="@{/save}" th:object="${employee}" method="post">
+                <caption>
+                    <h2>
+                        Formulaire d'ajout d'employer
+                    </h2>
+                </caption>
+                <br>
+                 <fieldset class="form-group">
+                    <label>CIN employer</label> 
+                    <input type="text" th:field="*{cin}" class="form-control" name="cin" required="required">
+                </fieldset>
+                <fieldset class="form-group">
+                    <label>Nom et prénom </label> 
+                    <input type="text"  th:field="*{nom}" class="form-control" name="nom" required="required">
+                </fieldset>
+               
+                <fieldset class="form-group">
+                    <label>Adresse</label> 
+                    <input type="text" th:field="*{adresse}" class="form-control" name="adr">
+                </fieldset>
+                <fieldset class="form-group">
+                    <label>Téléphone</label> <input type="text" th:field="*{tel}" class="form-control" name="tel">
+                </fieldset>
+
+
+                <button type="submit" class="btn btn-success">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

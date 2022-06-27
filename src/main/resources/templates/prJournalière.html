@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>presence journaliere</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<style>
+         .navbar-nav{
+            position: relative;
+            left: 30%;
+            margin-left: -10%;
+        }
+        #container{
+            display:flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark" style="background-color:  rgb(255, 204, 75)">
+            
+            
+                    <ul class="navbar-nav">
+                    	<li><a th:href="@{'/'}" class="navbar-brand">liste d'employers</a></li>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;
+                        <li><a th:href="@{'/prJournalière'}" class="navbar-brand">liste de présence journalière</a></li>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;
+                        <li><a th:href="@{'/prMensuelle'}" class="navbar-brand">liste de présence mensuelle</a></li>
+                        
+                    </ul>
+                </nav>
+            </header>
+            <br>
+
+            <div class="row" style="margin: 20px 20px;">
+                <!-- <div class="alert alert-success" *ngIf='message'>{{message}}</div> -->
+                
+                <div class="container col-md-6">
+                    <h3 class="text-center">Liste d'absence</h3>
+                    <hr>
+                    
+                    <br>
+                    <form id="absence" action="#"  method="post">
+                    <table id="absenceTable" class="table table-bordered " >
+                        <thead>
+                            <tr>
+                                <th>Cin</th>
+                                <th>Nom et Prénom</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Selection de présence</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                      
+                                                       
+      							<tr  th:each="absenceList : ${absenceList}">
+								<td th:text="${absenceList.cin}">Cin</td>
+								<td th:text="${absenceList.nom}">Nom  et prénom</td>
+								<td th:text="${absenceList.jour}">Date</td>
+								<td th:text="${absenceList.presence}">Selection de présence</td> 
+                            
+                         
+                             
+                              <td>
+                                <input class="ab" type="radio" th:id="${absenceList.id}+'r1'"   th:name="${absenceList.id}" th:value="0" checked><label th:for="${absenceList.id}+'r1'" style=" font-size:larger;">&nbsp; 0</label>&emsp;&emsp;
+                                <input class="ab" type="radio" th:id="${absenceList.id}+'r2'" th:name="${absenceList.id}" th:value="0.5"  ><label th:id="${absenceList.id}+'r2'" style=" font-size:larger;" >&nbsp; 0.5</label>&emsp;&emsp;
+                                <input class="ab" type="radio" th:id="${absenceList.id}+'r3'"  th:name="${absenceList.id}" th:value="1"><label th:id="${absenceList.id}+'r3'" style=" font-size:larger;" >&nbsp; 1</label>
+                              </td>
+                                <script type="text/javascript" th:inline="javascript">
+                            
+                            var value = /*[[${absenceList.presence}]]*/ '0';
+                          
+                          
+                            console.log(value);
+                        	    var r1=/*[[${absenceList.id}]]*/ 'r1' ;
+                           r1+='r1';
+                            var r2=/*[[${absenceList.id}]]*/  'r2';
+                            r2+='r2';
+                            var r3=/*[[${absenceList.id}]]*/  'r3';
+                            r3+='r3';
+                            if(value==0.5){
+									
+									document.getElementById(r2).checked=true;
+	
+								}
+							else if(value==1){
+									document.getElementById(r3).checked=true;
+							}	
+
+                            
+                            
+                            </script> 
+                            
+                        </tr>
+                    </tbody>
+                    </table>
+                    <button  type="button" onclick="take_values()" style="position: relative; left:70%">Enregister</button>
+                </form>
+                </div>
+                <div class="container col-md-6">
+                    <h3 class="text-center">Liste de présence </h3>
+                    <hr>
+                    
+                    <br>
+                    <form action="">
+                    <table id="presenceTable" class="table table-bordered "  >
+                          <thead>
+                            <tr>
+                                <th>Cin</th>
+                                <th>Nom et Prénom</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Selection de présence</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                      
+                                                       
+      							<tr  th:each="presenceList : ${presenceList}">
+								<td th:text="${presenceList.cin}">Cin</td>
+								<td th:text="${presenceList.nom}">Nom  et prénom</td>
+								<td th:text="${presenceList.jour}">Date</td>
+								<td th:text="${presenceList.presence}">Selection de présence</td> 
+                            
+                         
+                             
+                              <td>
+                                <input class="ab" type="radio" th:id="${presenceList.id}+'r1'"   th:name="${presenceList.id}" th:value="0" checked><label th:for="${presenceList.id}+'r1'" style=" font-size:larger;">&nbsp; 0</label>&emsp;&emsp;
+                                <input class="ab" type="radio" th:id="${presenceList.id}+'r2'" th:name="${presenceList.id}" th:value="0.5"  ><label th:id="${presenceList.id}+'r2'" style=" font-size:larger;" >&nbsp; 0.5</label>&emsp;&emsp;
+                                <input class="ab" type="radio" th:id="${presenceList.id}+'r3'"  th:name="${presenceList.id}" th:value="1"><label th:id="${presenceList.id}+'r3'" style=" font-size:larger;" >&nbsp; 1</label>
+                              </td>
+                                <script type="text/javascript" th:inline="javascript">
+                            
+                            var value = /*[[${presenceList.presence}]]*/ '0';
+                          
+                          
+                            console.log(value);
+                        	    var r1=/*[[${presenceList.id}]]*/ 'r1' ;
+                           r1+='r1';
+                            var r2=/*[[${presenceList.id}]]*/  'r2';
+                            r2+='r2';
+                            var r3=/*[[${presenceList.id}]]*/  'r3';
+                            r3+='r3';
+                            if(value==0.5){
+									
+									document.getElementById(r2).checked=true;
+	
+								}
+							else if(value==1){
+									document.getElementById(r3).checked=true;
+							}	
+
+                            
+                            
+                            </script> 
+                            
+                        </tr>
+                    </tbody>
+                       
+                    </table>
+                    
+                    <button  type="button" onclick="take_values()" style="position: relative; left:70%">Enregister</button>
+                </form>
+                </div>
+            </div>
+ <script src="js/jquery/jquery.js"  th:src="@{/js//jquery/jquery.js}"  type="text/javascript"></script>
+ <script src="js/jquery/jquery.min.js" th:src="@{/js/jquery/jquery.min.js}"  type="text/javascript"></script>
+<script src="js/jquery.validate.min.js" th:src="@{/js/jquery.validate.min.js}" type="text/javascript"></script>
+ <script src="js/DataTables/datatables.min.js"  th:src="@{/js/DataTables/datatables.min.js}" type="text/javascript"></script>    
+ <script type="text/javascript"  th:inline="javascript">
+ 
+ 	
+ 	//jsonParams['parentId']=1;
+ 	
+ 	//jsonParams['array']=$("#absence").serialize();
+      function take_values(){
+	
+			var jsonParams= {};
+ 	 var checkBoxInputs = document.getElementsByClassName('ab');
+ 	 
+ 	 console.log(checkBoxInputs);
+ 	 console.log(checkBoxInputs.length);
+ 	  for (let i = 0; i < checkBoxInputs.length; i++){
+	if(checkBoxInputs[i].checked){ 
+		console.log(checkBoxInputs[i].name+"  :  "+checkBoxInputs[i].value);
+	jsonParams[checkBoxInputs[i].name]=checkBoxInputs[i].value;
+	console.log(jsonParams);
+	}
+	}
+	
+
+
+			
+  			$.ajax({
+                    url: 'http://localhost:8080/updateAbsence',                 
+                   // url: "[${@environment.getProprety('api.base.path')}]/try",
+                    type : "GET",
+                    cache : false,
+                    data: {
+						"name":JSON.stringify(jsonParams)
+						},
+                    dataType:'json',
+                   success:function(data)
+                    {
+						 var array = /*[[ ${presenceList}]]*/ '';
+						 console.log(data);
+						 $('#absenceTable').dataTable().fnDestroy();
+					$('#absenceTable').dataTable({
+                            "autoWidth": false,
+                           "aaData":data,
+                           "scrollX": false,
+                           "searching":false,
+                           "bInfo": false,
+                           "lengthChange": false,
+                           "paging":false,
+                           "aoColumns":[
+                           
+                        
+                           {"sTitle":"CIN","mData":"cin"},
+                          {"sTitle":"Nom et Prénom","mData":"nom"},
+                          {"sTitle":"Date","mData":"jour"},
+                          {"sTitle":"Status","mData":"presence"},
+                          
+                          {
+							 "sTitle":"Selection de présence",
+                                        "mData": {id:"id",presence:"presence"},
+							"render" : function(mData,type,row,meta)
+                                        {
+										console.log(mData.presence);
+										console.log("iogerjgoeirhe");
+										console.log(mData.id);
+										
+										var r1=mData.id ;
+                         				 
+                           r1+='r1';
+                           console.log(r1);
+                            var r2=mData.id;
+                            r2+='r2';
+                            var r3=mData.id;
+                            r3+='r3';
+                           
+									return '<input class="ab" type="radio" id='+r1+'   name='+mData.id+' value="0" checked ><label for='+r1+' style=" font-size:larger;">&nbsp; 0</label>&emsp;&emsp;<input class="ab" type="radio" id='+r2+' name='+mData.id+' value="0.5"  ><label id='+r2+' style=" font-size:larger;" >&nbsp; 0.5</label>&emsp;&emsp;<input class="ab" type="radio" id='+r3+'  name='+mData.id+' value="1" ><label id="'+r3+'style=" font-size:larger;" >&nbsp; 1</label>'
+                                    
+                                        ;
+										}
+							} 
+							
+                           ]
+					
+				
+					
+                   
+                }); 
+				 $.ajax({
+                    url: 'http://localhost:8080/updatePresence',                 
+                   // url: "[${@environment.getProprety('api.base.path')}]/try",
+                    type : "GET",
+                    cache : false,
+                  
+                    dataType:'json',
+                   success:function(data)
+                    {
+						 var array = /*[[ ${presenceList}]]*/ '';
+						 console.log(data);
+						 $('#presenceTable').dataTable().fnDestroy();
+					$('#presenceTable').dataTable({
+                            "autoWidth": false,
+                           "aaData":data,
+                           "scrollX": false,
+                           "searching":false,
+                           "bInfo": false,
+                           "lengthChange": false,
+                           "paging":false,
+                           "aoColumns":[
+                           
+                        
+                           {"sTitle":"CIN","mData":"cin"},
+                          {"sTitle":"Nom et Prénom","mData":"nom"},
+                          {"sTitle":"Date","mData":"jour"},
+                          {"sTitle":"Status","mData":"presence"},
+                          
+                          {
+							 "sTitle":"Selection de présence",
+                                        "mData": {id:"id",presence:"presence"},
+							"render" : function(mData,type,row,meta)
+                                        {
+										console.log(mData.presence);
+										console.log("iogerjgoeirhe");
+										console.log(mData.id);
+										
+										var r1=mData.id ;
+                         				 
+                           r1+='r1';
+                           console.log(r1);
+                            var r2=mData.id;
+                            r2+='r2';
+                            var r3=mData.id;
+                            r3+='r3';
+                            if(mData.presence==0.5){
+									return '<input class="ab" type="radio" id='+r1+'   name='+mData.id+' value="0" ><label for='+r1+' style=" font-size:larger;">&nbsp; 0</label>&emsp;&emsp;<input class="ab" type="radio" id='+r2+' name='+mData.id+' value="0.5" checked ><label id='+r2+' style=" font-size:larger;" >&nbsp; 0.5</label>&emsp;&emsp;<input class="ab" type="radio" id='+r3+'  name='+mData.id+' value="1" ><label id="'+r3+'style=" font-size:larger;" >&nbsp; 1</label>'
+                                    
+                                        ;
+	
+								}
+							else if(mData.presence==1){
+									return '<input class="ab" type="radio" id='+r1+'   name='+mData.id+' value="0" ><label for='+r1+' style=" font-size:larger;">&nbsp; 0</label>&emsp;&emsp;<input class="ab" type="radio" id='+r2+' name='+mData.id+' value="0.5"  ><label th:id='+r2+' style=" font-size:larger;" >&nbsp; 0.5</label>&emsp;&emsp;<input class="ab" type="radio" id='+r3+'  name='+mData.id+' value="1" checked ><label id='+r3+'style=" font-size:larger;" >&nbsp; 1</label>'
+									
+                         				;
+							}
+							
+									
+                         				 		
+										}
+							} 
+							
+                           ]
+					
+				
+					
+                   
+                }); 
+				
+              }  
+		 });
+		 
+              }  
+		 });
+		  
+
+		/*var http = new XMLHttpRequest();
+ http.open("GET", "http://localhost:8080/try", true);
+ http.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+ var ordAttributes=[];
+ ordAttributes.push("bachir");
+ 
+ var params = "parent="+1+"&array="+ordAttributes; // probably use document.getElementById(...).value
+ console.log(params);
+ http.send(params);*/
+        }
+
+    </script> 
+</body>
+</html>
